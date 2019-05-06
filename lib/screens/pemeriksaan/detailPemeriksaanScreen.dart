@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dent_is_pasien/components/buttonGradient.dart';
 import 'package:dent_is_pasien/utils/utils.dart';
+import 'pemeriksaanAwal.dart';
 
 class DetailPemeriksaanScreen extends StatefulWidget {
   final Map<String,dynamic> data;
@@ -50,7 +51,7 @@ class _DetailPemeriksaanScreenState extends State<DetailPemeriksaanScreen> {
                         color: Colors.grey,
                         image: DecorationImage(
                           image: NetworkImage(
-                            widget.data["fotorontgen_set"][0]!=null?"http://10.0.2.2:8000${widget.data["fotorontgen_set"][0]["foto"]}":""
+                            widget.data["fotorontgen_set"].length!=0?"http://10.0.2.2:8000${widget.data["fotorontgen_set"][0]["foto"]}":""
                           ),
                           fit: BoxFit.fitWidth
                         )
@@ -139,7 +140,17 @@ class _DetailPemeriksaanScreenState extends State<DetailPemeriksaanScreen> {
                             child: ButtonGradient(
                               height: 40,
                               width: 140,
-                              onTap: (){},
+                              onTap: (){
+                                Navigator.push(
+                                  context, 
+                                  new MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                      new PemeriksaanAwal(
+                                        data: widget.data,
+                                      )
+                                    )
+                                );
+                              },
                               text: "Lihat Rekam Medis",
                             ),
                           )

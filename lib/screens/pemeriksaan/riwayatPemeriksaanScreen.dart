@@ -90,7 +90,7 @@ class _RiwayatPemeriksaanScreenState extends State<RiwayatPemeriksaanScreen> {
                         color: Colors.grey,
                         image: DecorationImage(
                           image: NetworkImage(
-                            a["fotorontgen_set"][0]!=null?"http://10.0.2.2:8000${a["fotorontgen_set"][0]["foto"]}":""
+                            a["fotorontgen_set"].length!=0?"http://10.0.2.2:8000${a["fotorontgen_set"][0]["foto"]}":""
                           ),
                           fit: BoxFit.fitWidth
                         )
@@ -129,6 +129,7 @@ class _RiwayatPemeriksaanScreenState extends State<RiwayatPemeriksaanScreen> {
         );
       }
     } catch (e) {
+      print(e);
       error();
     }
   }
