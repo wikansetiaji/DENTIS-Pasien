@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:dent_is_pasien/screens/initialScreen.dart';
 import 'pemeriksaan/riwayatPemeriksaanScreen.dart';
 import 'dentalNews.dart';
+import 'appointmentScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -33,7 +34,11 @@ class HomeScreen extends StatelessWidget {
             Container(height: 30,),
             ButtonCard(
               onTap: (){
-                
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    new AppointmentScreen()
+                  )
+                );
               },
               child: Row(
                 children: <Widget>[
