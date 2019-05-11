@@ -36,9 +36,9 @@ class _RiwayatPemeriksaanScreenState extends State<RiwayatPemeriksaanScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://10.0.2.2:8000/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
       var response =  await http.get(
-        'http://10.0.2.2:8000/pasien-rekam-medis/',
+        'http://api-dentis.herokuapp.com/pasien-rekam-medis/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },
@@ -90,7 +90,7 @@ class _RiwayatPemeriksaanScreenState extends State<RiwayatPemeriksaanScreen> {
                         color: Colors.grey,
                         image: DecorationImage(
                           image: NetworkImage(
-                            a["fotorontgen_set"].length!=0?"http://10.0.2.2:8000${a["fotorontgen_set"][0]["foto"]}":""
+                            a["fotorontgen_set"].length!=0?"http://api-dentis.herokuapp.com${a["fotorontgen_set"][0]["foto"]}":""
                           ),
                           fit: BoxFit.fitWidth
                         )

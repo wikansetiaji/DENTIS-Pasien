@@ -131,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         };
       }
       var response =  await http.post(
-        'http://10.0.2.2:8000/pasien/',
+        'http://api-dentis.herokuapp.com/pasien/',
         body: bodyJson
       );
       if (response.statusCode!=200 && response.statusCode!=201){

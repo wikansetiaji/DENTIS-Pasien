@@ -60,7 +60,7 @@ class _UploadFotoState extends State<UploadFoto> {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     image: DecorationImage(
                       image: NetworkImage(
-                        widget.data["fotorontgen_set"].length!=0?"http://10.0.2.2:8000${widget.data["fotorontgen_set"][0]["foto"]}":""
+                        widget.data["fotorontgen_set"].length!=0?"http://api-dentis.herokuapp.com${widget.data["fotorontgen_set"][0]["foto"]}":""
                       ),
                       fit: BoxFit.fitWidth
                     )

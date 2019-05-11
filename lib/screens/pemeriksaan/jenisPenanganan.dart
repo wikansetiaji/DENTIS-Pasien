@@ -19,13 +19,13 @@ class JenisPenanganan extends StatefulWidget {
 class _JenisPenangananState extends State<JenisPenanganan> {
   final lainnyaController = TextEditingController();
   String alert="";
-  Map<String,bool> penanganan = {
+  Map<String,dynamic> penanganan = {
     "dhe":false,
-    "cpp":false,
-    "protection":false,
-    "fissureseal":false,
+    "cpp_acp":false,
+    "sp":false,
+    "fs":false,
     "art":false,
-    "ekstraksi":false,
+    "eks":false,
     "lainnya":false
   };
 
@@ -33,11 +33,11 @@ class _JenisPenangananState extends State<JenisPenanganan> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
+    print(widget.data["penanganan"]);
     setState(() {
       if (widget.data["penanganan"]!=null){
-        for (var i in widget.data["penanganan"]){
-          penanganan[i]=true;
-        }
+        penanganan = new Map<String, dynamic>.from(widget.data["penanganan"]);
+        lainnyaController.text = widget.data["penanganan"]["lainnya"];
       }
     });
   }
@@ -89,17 +89,17 @@ class _JenisPenangananState extends State<JenisPenanganan> {
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
                   new CheckboxListTile(
-                    value: penanganan["cpp"],
+                    value: penanganan["cpp_acp"],
                     title: new Text('Aplikasi CPP ACP'),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
                   new CheckboxListTile(
-                    value: penanganan["protection"],
+                    value: penanganan["sp"],
                     title: new Text('Surface Protection'),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
                   new CheckboxListTile(
-                    value: penanganan["fissureseal"],
+                    value: penanganan["fs"],
                     title: new Text('Fissure Sealant'),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
@@ -109,12 +109,12 @@ class _JenisPenangananState extends State<JenisPenanganan> {
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
                   new CheckboxListTile(
-                    value: penanganan["ekstraksi"],
+                    value: penanganan["eks"],
                     title: new Text('Pencabutan / Ekstraksi'),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
                   new CheckboxListTile(
-                    value: penanganan["lainnya"],
+                    value: penanganan["lainnya"]!="" && widget.data["penanganan"]!=null,
                     title: new Text('Lainnya'),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),

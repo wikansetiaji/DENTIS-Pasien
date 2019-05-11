@@ -130,10 +130,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         String tempPath = tempDir.path;
         
         PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-        List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://10.0.2.2:8000/pasien-login/")));
+        List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
         print(cookies[1].name+"="+cookies[1].value+";"+cookies[0].name+"="+cookies[0].value);
         var response =  await http.patch(
-          'http://10.0.2.2:8000/pasien/${widget.id}/',
+          'http://api-dentis.herokuapp.com/pasien/${widget.id}/',
           headers: {
             "Cookie":cookies[1].name+"="+cookies[1].value+";"+cookies[0].name+"="+cookies[0].value,
             "X-CSRFToken":cookies[0].value

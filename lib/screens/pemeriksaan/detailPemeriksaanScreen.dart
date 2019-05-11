@@ -51,7 +51,7 @@ class _DetailPemeriksaanScreenState extends State<DetailPemeriksaanScreen> {
                         color: Colors.grey,
                         image: DecorationImage(
                           image: NetworkImage(
-                            widget.data["fotorontgen_set"].length!=0?"http://10.0.2.2:8000${widget.data["fotorontgen_set"][0]["foto"]}":""
+                            widget.data["fotorontgen_set"].length!=0?"http://api-dentis.herokuapp.com${widget.data["fotorontgen_set"][0]["foto"]}":""
                           ),
                           fit: BoxFit.fitWidth
                         )
@@ -157,46 +157,6 @@ class _DetailPemeriksaanScreenState extends State<DetailPemeriksaanScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.all(15),
-                      padding: EdgeInsets.all(15),
-                      width: 330,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        border: Border.all(
-                          color: Theme.of(context).accentColor,
-                          width: 2.0
-                        )
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Tagihan",style: TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
-                          Divider(
-                            color: Theme.of(context).accentColor,
-                          ),
-                          Container(height: 10,),
-                          Row(
-                            children: <Widget>[
-                              Text("Total tagihan"),
-                              Expanded(child: Container(),),
-                              Text("Rp. 200000")
-                            ],
-                          ),
-                          Container(height: 10,),
-                          Container(
-                            alignment: Alignment.center,
-                            child: ButtonGradient(
-                              height: 40,
-                              width: 140,
-                              onTap: (){},
-                              text: "Lihat Tagihan",
-                            ),
-                          )
-                        ],
-                      ),
-                    )
                   ],
                 )
               ],

@@ -35,10 +35,10 @@ class _PemeriksaanAwalState extends State<PemeriksaanAwal> {
       
       anamnesaController.text =widget.data["anamnesa"].toString();
       alergiController.text = widget.data["alergi"].toString();
-      riwayatController.text = widget.data["riwayat_penyakit"].toString();
-      tekananDarahController.text = widget.data["tekanan_darah"].toString();
-      beratController.text = widget.data["berat"].toString();
-      tinggiController.text = widget.data["tinggi"].toString();
+      riwayatController.text = widget.data["riwayat_penyakit"]!=null?widget.data["riwayat_penyakit"].toString():"";
+      tekananDarahController.text =widget.data["tekanan_darah"]!=null?widget.data["tekanan_darah"].toString():"";
+      beratController.text = widget.data["berat"]!=null?widget.data["berat"].toString():"";
+      tinggiController.text = widget.data["tinggi"]!=null?widget.data["tinggi"].toString():"";
 
     });
   }

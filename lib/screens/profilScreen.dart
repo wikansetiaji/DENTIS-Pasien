@@ -36,9 +36,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://10.0.2.2:8000/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
       var response =  await http.get(
-        'http://10.0.2.2:8000/pasien-profile/',
+        'http://api-dentis.herokuapp.com/pasien-profile/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },

@@ -31,14 +31,15 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     try {
       setState(() {
         this.height=MediaQuery.of(context).size.height;
+        this.list=[];
       });
       Directory tempDir = await getTemporaryDirectory();
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://10.0.2.2:8000/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
       var response =  await http.get(
-        'http://10.0.2.2:8000/appointment-pasien/',
+        'http://api-dentis.herokuapp.com/appointment-pasien/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },
@@ -52,60 +53,116 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       }
       var body = json.decode(response.body);
       for (var i in body){
-        this.list.addAll([
-          Container(
-            margin: EdgeInsets.all(15),
-            padding: EdgeInsets.all(15),
-            width: 330,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              border: Border.all(
-                color: Theme.of(context).accentColor,
-                width: 2.0
-              )
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("Appointment",style: TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
-                Divider(
+        if (i["is_active"]){
+          this.list.addAll([
+            Container(
+              margin: EdgeInsets.all(15),
+              padding: EdgeInsets.all(15),
+              width: 330,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                border: Border.all(
                   color: Theme.of(context).accentColor,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(height: 10,),
-                        Text("Nama Dokter"),
-                        Container(height: 10,),
-                        Text("Waktu Layanan")
-                      ],
-                    ),
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Container(height: 10,),
-                        Text(i["dokter"]["nama"]),
-                        Container(height: 10,),
-                        Text("${Util.convertToDateString(i["jadwal"]["waktu_mulai"].split("T")[0])}"),
-                        Text("${i["jadwal"]["waktu_mulai"].split("T")[1].split("Z")[0]} - ${i["jadwal"]["waktu_selesai"].split("T")[1].split("Z")[0]}")
-                      ],
-                    )
-                  ],
+                  width: 2.0
                 )
-              ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("${Util.convertToDateString(i["jadwal"]["waktu_mulai"].split("T")[0])}",style: TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
+                  Divider(
+                    color: Theme.of(context).accentColor,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(height: 10,),
+                          Text("Nama Dokter"),
+                          Container(height: 10,),
+                          Text("Waktu Layanan")
+                        ],
+                      ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Container(height: 10,),
+                          Text(i["dokter"]["nama"]),
+                          Container(height: 10,),
+                          Text("${i["jadwal"]["waktu_mulai"].split("T")[1].split("Z")[0]} - ${i["jadwal"]["waktu_selesai"].split("T")[1].split("Z")[0]}")
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ]);
+          ]);
+        }
+        else{
+          this.list.addAll([
+            Container(
+              margin: EdgeInsets.all(15),
+              padding: EdgeInsets.all(15),
+              width: 330,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2.0
+                )
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("${Util.convertToDateString(i["jadwal"]["waktu_mulai"].split("T")[0])}",style: TextStyle(fontWeight: FontWeight.w900,fontSize: 18,color: Colors.grey),),
+                  Divider(
+                    color: Colors.grey
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(height: 10,),
+                          Text("Nama Dokter",style:TextStyle(color: Colors.grey)),
+                          Container(height: 10,),
+                          Text("Waktu Layanan",style:TextStyle(color: Colors.grey)),
+                        ],
+                      ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Container(height: 10,),
+                          Text(i["dokter"]["nama"],style:TextStyle(color: Colors.grey)),
+                          Container(height: 10,),
+                          Text("${i["jadwal"]["waktu_mulai"].split("T")[1].split("Z")[0]} - ${i["jadwal"]["waktu_selesai"].split("T")[1].split("Z")[0]}",style:TextStyle(color: Colors.grey)),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ]);
+        }
       }
       print(body);
       setState(() {

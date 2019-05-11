@@ -18,22 +18,18 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
   String datePicked;
   String timePicked;
   String dokterPicked;
-  String layananPicked;
   List<dynamic> listJadwal = [];
   List<dynamic> listDokter = [];
-  List<dynamic> listLayanan = [];
   Set<String> dateSet= new Set<String>();
   Set<String> timeSet= new Set<String>();
   List<DropdownMenuItem<String>> dokterDropdownList = new List<DropdownMenuItem<String>>();
   List<DropdownMenuItem<String>> dateDropdownList = new List<DropdownMenuItem<String>>();
   List<DropdownMenuItem<String>> timeDropdownList = new List<DropdownMenuItem<String>>();
-  List<DropdownMenuItem<String>> layananDropdownList = new List<DropdownMenuItem<String>>();
   double height=0;
   double opacity=0;
   String alertTanggal="";
   String alertJam="";
   String alertDokter="";
-  String alertLayanan="";
 
   error()async{
     await Navigator.of(context).pushReplacement(
@@ -53,9 +49,9 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://10.0.2.2:8000/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
       var responseJadwal =  await http.get(
-        'http://10.0.2.2:8000/jadwal-available/',
+        'http://api-dentis.herokuapp.com/jadwal-available/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },
@@ -87,7 +83,7 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
       }
 
       var responseDokter =  await http.get(
-        'http://10.0.2.2:8000/dokter/',
+        'http://api-dentis.herokuapp.com/dokter/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },
@@ -111,30 +107,6 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
         ]);
       }
 
-      var responseLayanan =  await http.get(
-        'http://10.0.2.2:8000/jenis-penanganan/',
-        headers: {
-          "Cookie":cookies[1].name+"="+cookies[1].value
-        },
-      );
-      if(responseLayanan.statusCode!=200 && responseLayanan.statusCode!=201){
-        await error();
-        setState(() {
-          height=0;
-        });
-        return;
-      }
-      var bodyLayanan = json.decode(responseLayanan.body);
-      listLayanan=bodyLayanan;
-      layananDropdownList = new List<DropdownMenuItem<String>>();
-      for (var i in listLayanan){
-        layananDropdownList.addAll([
-          DropdownMenuItem(
-            value: i["id"].toString(),
-            child: Text(i["nama"]),
-          )
-        ]);
-      }
 
       setState(() {
         this.height=0;
@@ -150,7 +122,6 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
       setState(() {
         alertDokter="";
         alertJam="";
-        alertLayanan="";
         alertTanggal="";
       });
       bool passed = true;
@@ -166,10 +137,6 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
         passed=false;
         alertDokter="Dokter wajib diisi";
       }
-      if (layananPicked==null){
-        passed=false;
-        alertLayanan="Layanan wajib diisi";
-      }
       if (passed){
         setState(() {
           opacity=MediaQuery.of(context).size.height;
@@ -178,10 +145,10 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
         String tempPath = tempDir.path;
         
         PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-        List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://10.0.2.2:8000/pasien-login/")));
+        List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
         print(cookies[1].name+"="+cookies[1].value+";"+cookies[0].name+"="+cookies[0].value);
         var response =  await http.post(
-          'http://10.0.2.2:8000/appointment-pasien/',
+          'http://api-dentis.herokuapp.com/appointment-pasien/',
           headers: {
             "Cookie":cookies[1].name+"="+cookies[1].value+";"+cookies[0].name+"="+cookies[0].value,
             "X-CSRFToken":cookies[0].value
@@ -363,32 +330,6 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
                         ),
                       ),
                       Text("$alertDokter",style: TextStyle(color: Colors.red),),
-                      Container(height: 15,),
-                      Text("Layanan",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
-                      Container(
-                        padding: EdgeInsets.only(left:10),
-                        alignment: Alignment.centerLeft,
-                        width: 325,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(
-                            color: Colors.grey[600],
-
-                          )
-                        ),
-                        child: new DropdownButton(
-                          hint: Text("Pilih layanan"),
-                          isExpanded: true,
-                          value: layananPicked,
-                          items: layananDropdownList,
-                          onChanged: (String selected){
-                            setState(() {
-                                layananPicked = selected;
-                              });
-                          },
-                        ),
-                      ),
-                      Text("$alertLayanan",style: TextStyle(color: Colors.red),),
                       Container(height: 15,),
                       Container(
                         alignment: Alignment.center,
