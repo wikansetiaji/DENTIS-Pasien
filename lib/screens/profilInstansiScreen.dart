@@ -120,7 +120,11 @@ class _ProfilInstansiScreenState extends State<ProfilInstansiScreen> {
                   ButtonGradient(
                     height: 40,
                     width: 200,
-                    onTap: (){},
+                    onTap: ()async{
+                      await launch(
+                            "tel:081284640615"
+                          );
+                    },
                     text: "emergency call",
                   ),
                   Container(height: 15,),

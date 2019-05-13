@@ -34,7 +34,7 @@ class _OdontogramState extends State<Odontogram> {
   }
 
   openDetail(Map<String,dynamic> gigi) async{
-    List<String> ohis=["11","16","21","31","36","46"];
+    List<String> ohis=["11","16","26","31","36","46"];
     if (int.parse(gigi["kode"].substring(1))<4){
       if (ohis.contains(gigi["kode"])){
         await Navigator.push(
@@ -83,7 +83,7 @@ class _OdontogramState extends State<Odontogram> {
 
   resetGigiDisplay(){
     gigi={};
-    List<String> ohis=["11","16","21","31","36","46"];
+    List<String> ohis=["11","16","26","31","36","46"];
     for (var gigi in widget.data["gigi_set"]){
       if (int.parse(gigi["kode"].substring(1))<4){
         int sum = 0;
