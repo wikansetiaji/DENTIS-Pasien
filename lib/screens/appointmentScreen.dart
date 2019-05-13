@@ -196,41 +196,57 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         centerTitle: true,
         title: Text("Appointment",style: TextStyle(color:Colors.black54),),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/wallpapers/wallpaper2.png"),
-            fit: BoxFit.cover
-          )
-        ),
-        child: ListView(
+      body: Stack(
           children: <Widget>[
-            Container(height: 48,),
-            Column(
-              children: <Widget>[
-                ButtonGradient(
-                  height: 50,
-                  width: 150,
-                  onTap: (){
-                    Navigator.of(context).push(
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                          new CreateAppointmentScreen()
-                        )
-                    );
-                  },
-                  text: "Buat Appointment",
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/wallpapers/wallpaper2.png"),
+                  fit: BoxFit.cover
                 )
-              ]
+              ),
+              child: ListView(
+                children: <Widget>[
+                  Container(height: 48,),
+                  Column(
+                    children: <Widget>[
+                      ButtonGradient(
+                        height: 50,
+                        width: 150,
+                        onTap: (){
+                          Navigator.of(context).push(
+                            new MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                new CreateAppointmentScreen()
+                              )
+                          );
+                        },
+                        text: "Buat Appointment",
+                      )
+                    ]
+                  ),
+                  Column(
+                    children:this.list
+                  )
+                ]
+              )
             ),
-            Column(
-              children:this.list
+            Container(
+              height: this.height,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+            ),
+            Container(
+              height: this.height,
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             )
           ]
         )
-      )
     );
   }
 }

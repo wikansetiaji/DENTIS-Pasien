@@ -147,39 +147,39 @@ class _RiwayatPemeriksaanScreenState extends State<RiwayatPemeriksaanScreen> {
       onWillPop: ()async{
         Navigator.of(context).pop();
       },
-      child:Stack(
-        children: <Widget>[
-          Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              leading: IconButton(
-                color: Colors.black,
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: ()async{
-                  Navigator.of(context).pop();
-                },
-              ),
-              centerTitle: true,
-              title: Text("Riwayat Pemeriksaan",style: TextStyle(color:Colors.black54),),
-            ),
-            body: ListView(
+      child:Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            color: Colors.black,
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: ()async{
+              Navigator.of(context).pop();
+            },
+          ),
+          centerTitle: true,
+          title: Text("Riwayat Pemeriksaan",style: TextStyle(color:Colors.black54),),
+        ),
+        body: Stack(
+          children: <Widget>[
+            ListView(
               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
               children: this.body,
             ),
-          ),
-          Container(
-            height: this.height,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-          ),
-          Container(
-            height: this.height,
-            width: MediaQuery.of(context).size.width,
-            child: Center(
-              child: CircularProgressIndicator(),
+            Container(
+              height: this.height,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
             ),
-          )
-        ]
+            Container(
+              height: this.height,
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          ]
+        )
       )
     );
   }
