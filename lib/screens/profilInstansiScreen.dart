@@ -36,9 +36,9 @@ class _ProfilInstansiScreenState extends State<ProfilInstansiScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://dent-is.herokuapp.com/pasien-login/")));
       var response =  await http.get(
-        'http://api-dentis.herokuapp.com/instansi/',
+        'http://dent-is.herokuapp.com/instansi/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },
@@ -54,7 +54,7 @@ class _ProfilInstansiScreenState extends State<ProfilInstansiScreen> {
       this.data=body[0];
       print(this.data["nama"]);
       var responseDokter =  await http.get(
-        'http://api-dentis.herokuapp.com/dokter/',
+        'http://dent-is.herokuapp.com/dokter/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },

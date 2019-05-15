@@ -43,7 +43,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
               String tempPath = tempDir.path;
               
               PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-              cj.delete(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/"));
+              cj.delete(Uri.parse("http://dent-is.herokuapp.com/pasien-login/"));
               Navigator.pushReplacement(context, new MaterialPageRoute(
                 builder: (BuildContext context) =>
                 new InitialScreen()

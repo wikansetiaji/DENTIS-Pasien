@@ -51,7 +51,7 @@ class _DetailPemeriksaanScreenState extends State<DetailPemeriksaanScreen> {
                         color: Colors.grey,
                         image: DecorationImage(
                           image: NetworkImage(
-                            widget.data["fotorontgen_set"].length!=0?"http://api-dentis.herokuapp.com${widget.data["fotorontgen_set"][0]["foto"]}":""
+                            widget.data["fotorontgen_set"].length!=0?"http://dent-is.herokuapp.com${widget.data["fotorontgen_set"][0]["foto"]}":""
                           ),
                           fit: BoxFit.fitWidth
                         )

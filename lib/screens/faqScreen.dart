@@ -36,9 +36,9 @@ class _FAQScreenState extends State<FAQScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://dent-is.herokuapp.com/pasien-login/")));
       var response =  await http.get(
-        'http://api-dentis.herokuapp.com/faqs/',
+        'http://dent-is.herokuapp.com/faqs/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },

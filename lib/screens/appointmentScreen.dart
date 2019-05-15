@@ -37,9 +37,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://dent-is.herokuapp.com/pasien-login/")));
       var response =  await http.get(
-        'http://api-dentis.herokuapp.com/appointment-pasien/',
+        'http://dent-is.herokuapp.com/appointment-pasien/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },

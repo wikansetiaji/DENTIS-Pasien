@@ -49,9 +49,9 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://dent-is.herokuapp.com/pasien-login/")));
       var responseJadwal =  await http.get(
-        'http://api-dentis.herokuapp.com/jadwal-available/',
+        'http://dent-is.herokuapp.com/jadwal-available/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },
@@ -83,7 +83,7 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
       }
 
       var responseDokter =  await http.get(
-        'http://api-dentis.herokuapp.com/dokter/',
+        'http://dent-is.herokuapp.com/dokter/',
         headers: {
           "Cookie":cookies[1].name+"="+cookies[1].value
         },
@@ -145,10 +145,10 @@ class _CreateAppointmentState extends State<CreateAppointmentScreen> {
         String tempPath = tempDir.path;
         
         PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-        List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
+        List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://dent-is.herokuapp.com/pasien-login/")));
         print(cookies[1].name+"="+cookies[1].value+";"+cookies[0].name+"="+cookies[0].value);
         var response =  await http.post(
-          'http://api-dentis.herokuapp.com/appointment-pasien/',
+          'http://dent-is.herokuapp.com/appointment-pasien/',
           headers: {
             "Cookie":cookies[1].name+"="+cookies[1].value+";"+cookies[0].name+"="+cookies[0].value,
             "X-CSRFToken":cookies[0].value

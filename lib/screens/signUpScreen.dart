@@ -16,6 +16,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   double height=0;
+  bool showPassword = false;
 
   String jenisKelamin="l";
   TextEditingController namaController = TextEditingController();
@@ -131,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         };
       }
       var response =  await http.post(
-        'http://api-dentis.herokuapp.com/pasien/',
+        'http://dent-is.herokuapp.com/pasien/',
         body: bodyJson
       );
       if (response.statusCode!=200 && response.statusCode!=201){
@@ -251,20 +252,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           alignment: Alignment.centerLeft,
                           child: Text(" ${alertPassword}",style: TextStyle(color: Colors.red),),
                         ),
-                        Container(
-                          height: 60,
-                          width: 325,
-                          child: new TextField(
-                            controller: passwordController,
-                            obscureText: true,
-                            decoration: new InputDecoration(
-                              border: new OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                borderSide: new BorderSide(color: Colors.blue)),
-                              hintText: 'Password*',
-                              labelText: 'Password*',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              height: 60,
+                              width: 275,
+                              child: new TextField(
+                                controller: passwordController,
+                                obscureText: !this.showPassword,
+                                decoration: new InputDecoration(
+                                  border: new OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    borderSide: new BorderSide(color: Colors.blue)),
+                                  hintText: 'Password*',
+                                  labelText: 'Password*',
+                                ),
+                              ),
                             ),
-                          ),
+                            IconButton(
+                              icon: Icon(Icons.visibility),
+                              onPressed: (){
+                                setState(() {
+                                  if(this.showPassword){
+                                    this.showPassword=false;
+                                  }
+                                  else{
+                                    this.showPassword=true;
+                                  }
+                                });
+                              },
+                            )
+                          ],
                         ),
                         Container(height: 10,),
                         Container(

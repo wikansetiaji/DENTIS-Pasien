@@ -19,13 +19,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   String alert = "";
+  bool showPassword=false;
 
   login() async{
     setState(() {
       opacity=MediaQuery.of(context).size.height;
     });
     var response =  await http.post(
-      'http://api-dentis.herokuapp.com/pasien-login/',
+      'http://dent-is.herokuapp.com/pasien-login/',
       headers: {
         "Content-Type":"application/x-www-form-urlencoded",
       },
@@ -39,12 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
       String tempPath = tempDir.path;
       
       PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-      cj.delete(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/"));
+      cj.delete(Uri.parse("http://dent-is.herokuapp.com/pasien-login/"));
       print(response.headers["set-cookie"].split(",")[0].split(";")[0].split("=")[1]);
       Cookie csrf = Cookie(response.headers["set-cookie"].split(",")[0].split(";")[0].split("=")[0],response.headers["set-cookie"].split(",")[0].split(";")[0].split("=")[1]);
       Cookie sessionid = Cookie(response.headers["set-cookie"].split(",")[2].split(";")[0].split("=")[0],response.headers["set-cookie"].split(",")[2].split(";")[0].split("=")[1]);
-      cj.saveFromResponse(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/"), [csrf,sessionid]);
-      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
+      cj.saveFromResponse(Uri.parse("http://dent-is.herokuapp.com/pasien-login/"), [csrf,sessionid]);
+      List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://dent-is.herokuapp.com/pasien-login/")));
       print("this is the cookies: ${cookies}");
       
       Navigator.pushReplacement(
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(bottom: 15),
-                                width: 200,
+                                width: 250,
                                 child: TextField(
                                   decoration: InputDecoration(
                                     labelText: "username",
@@ -115,16 +116,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller: usernameController,
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                width: 200,
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    labelText: "password"
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 10),
+                                    width: 200,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        labelText: "password"
+                                      ),
+                                      controller: passwordController,
+                                      obscureText: !this.showPassword
+                                    ),
                                   ),
-                                  controller: passwordController,
-                                  obscureText: true,
-                                ),
+                                  IconButton(
+                                    icon: Icon(Icons.visibility),
+                                    onPressed: (){
+                                      setState(() {
+                                        if (this.showPassword){
+                                          this.showPassword=false;
+                                        }
+                                        else{
+                                          this.showPassword=true;
+                                        }
+                                      });
+                                    },
+                                  )
+                                ],
                               ),
                               Text("${alert}",style: TextStyle(color: Colors.red, fontSize: 12),),
                               Container(height:30),

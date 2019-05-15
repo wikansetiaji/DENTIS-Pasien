@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String tempPath = tempDir.path;
     
     PersistCookieJar cj=new PersistCookieJar(dir:tempPath);
-    List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://api-dentis.herokuapp.com/pasien-login/")));
+    List<Cookie> cookies = (cj.loadForRequest(Uri.parse("http://dent-is.herokuapp.com/pasien-login/")));
     await new Future.delayed(const Duration(seconds: 3));
     print("haha");
     if (cookies.length!=0){
