@@ -88,7 +88,7 @@ class _OdontogramState extends State<Odontogram> {
       if (int.parse(gigi["kode"].substring(1))<4){
         int sum = 0;
         sum+=gigi["d"]+gigi["l"]+gigi["m"]+gigi["v"];
-        if (sum==-4){
+        if (sum==0){
           if (ohis.contains(gigi["kode"])){
             this.gigi.addAll({gigi["kode"]:Gigi4(ohis:true, code:gigi["kode"], onTap: (){openDetail(gigi);}, selected: false,)});
           }
@@ -108,7 +108,7 @@ class _OdontogramState extends State<Odontogram> {
       else{
         int sum = 0;
         sum+=gigi["d"]+gigi["l"]+gigi["o"]+gigi["m"]+gigi["v"];
-        if (sum==-5){
+        if (sum==0){
           if (ohis.contains(gigi["kode"])){
             this.gigi.addAll({gigi["kode"]:Gigi5(ohis:true,code:gigi["kode"], onTap:(){openDetail(gigi);}, selected: false,)});
           }
